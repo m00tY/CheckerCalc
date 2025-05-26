@@ -107,5 +107,9 @@ class SEXPList extends SEXP {
     public boolean isEmpty() {
         return elements.isEmpty();
     }
+
+    public Object get(int i) {
+        return elements.get(i);
+    }
 }
 

@@ -15,7 +15,6 @@ public class Parser {
 
     private @NonNull Token current() {
         if (position >= tokens.size()) {
-            // Defensive fallback if we ever run past end
             return new Token(Token.Type.EOF, "", null);
         }
         return tokens.get(position);

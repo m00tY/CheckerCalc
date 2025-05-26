@@ -12,16 +12,16 @@ public class Main {
         Eval evaluator = new Eval();
 
         if (args.length == 0) {
-            // Start REPL
-            System.out.println("Welcome to the REPL. Type expressions, or 'exit' to quit.");
+
+            System.out.println("Welcome to the REPL. Type expressions, or 'q' to quit.");
 
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
                 String line;
                 while (true) {
                     System.out.print("> ");
                     line = reader.readLine();
-                    if (line == null || line.strip().equalsIgnoreCase("exit")) {
-                        System.out.println("Goodbye.");
+                    if (line == null || line.strip().equalsIgnoreCase("q")) {
+
                         break;
                     }
                     if (line.isBlank()) {
@@ -51,6 +51,10 @@ public class Main {
             // File mode
             String fileName = args[0];
             Path file = Path.of(fileName);
+            if (!fileName.endsWith(".calc")) {
+                System.err.print("Error: Incorrect file extension");
+                System.exit(1);
+            }
             if (!Files.isReadable(file)) {
                 System.err.printf("Error: Cannot read file '%s'%n", fileName);
                 System.exit(1);

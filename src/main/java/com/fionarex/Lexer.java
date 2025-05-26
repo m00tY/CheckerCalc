@@ -1,12 +1,13 @@
 package com.fionarex;
 
 import org.checkerframework.checker.nullness.qual.*;
+import org.checkerframework.checker.index.qual.NonNegative;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Lexer {
     private final @NonNull String input;
-    private int position = 0;
+    private @NonNegative int position = 0;
 
     public Lexer(@NonNull String input) {
         this.input = input;
@@ -47,6 +48,10 @@ public class Lexer {
                     break;
                 case '-':
                     tokens.add(new Token(Token.Type.MINUS, "-", null));
+                    if (isNextDigit()) {
+                        advance();
+                        lexNumber();
+                    }
                     advance();
                     break;
                 case '*':
@@ -61,7 +66,7 @@ public class Lexer {
                     tokens.add(lexString());
                     break;
                 default:
-                    if (Character.isDigit(c) || (c == '-' && isNextDigit())) {
+                    if (Character.isDigit(c)) {
                         tokens.add(lexNumber());
                     } else if (isSymbolStart(c)) {
                         tokens.add(lexSymbol());
@@ -80,20 +85,18 @@ public class Lexer {
     }
 
     private boolean isSymbolStart(char c) {
-        return Character.isLetter(c) || "+-*/=!<>?".indexOf(c) != -1;
+        return Character.isLetter(c) || "+-*/=!<>?.".indexOf(c) != -1;
     }
 
     private Token lexNumber() {
         int start = position;
         if (currentChar() == '-') advance();
 
-        while (position < input.length() && Character.isDigit(currentChar())) {
+        while (position < input.length() && (Character.isDigit(currentChar()) || ".".indexOf(currentChar()) == 0)) {
             advance();
         }
 
-        boolean hasDot = false;
-        if (currentChar() == '.') {
-            hasDot = true;
+        if (".".indexOf(currentChar()) == 0) {
             advance();
             while (position < input.length() && Character.isDigit(currentChar())) {
                 advance();
