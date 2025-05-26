@@ -13,7 +13,7 @@ To use the REPL, run the main file using `gradle`.
 [5]
 
 (* 2 3)
-6
+[6]
 
 (define x 10)
 [10]
