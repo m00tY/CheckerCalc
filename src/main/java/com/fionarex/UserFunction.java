@@ -20,4 +20,8 @@ public class UserFunction {
         }
         return localEnv.eval(body); // This returns Object
     }
+
+    public String toString() {
+        return "[function (" + String.join(" ", parameters) + ")]";
+    }
 }

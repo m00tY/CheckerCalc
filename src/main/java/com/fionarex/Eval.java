@@ -180,7 +180,7 @@ public class Eval {
         }
 
         SEXP nameForm = args.get(0);
-        
+
         if (nameForm instanceof Atom) {
             String name = ((Atom) nameForm).getValue();
             Object value = eval(args.get(1));

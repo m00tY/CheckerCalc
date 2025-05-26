@@ -36,7 +36,7 @@ public class Main {
 
                         for (SEXP expr : expressions) {
                             Object result = evaluator.eval(expr);
-                            System.out.println(result);
+                            System.out.println("[" + result + "]");
                         }
                     } catch (Exception e) {
                         System.err.println("Error: " + e.getMessage());
